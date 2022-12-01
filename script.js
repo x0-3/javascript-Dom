@@ -24,20 +24,24 @@ function showReaction(type, clickedBox){
     }
 }
 
-//timer
+                                        /******************************timer***************************/
 
 let time 
 const timerElement = document.getElementById("timer") //find the element of timer in html
-function increaseTemps() {
 
-   let sec =0;
+function increaseTemps() {
+    let sec = 0;
     time = setInterval(()=>{
         
         let min = Math.floor(sec  / 60);
         let seconds = Math.floor(sec % 60);
-        timerElement.innerHTML = min + ":"  + seconds;
-        sec++
-    }, 1000)
+        if (seconds<10){ //if the timer is under the double digits value
+            timerElement.innerHTML = "0" + min + ":0" + seconds; //then add a 0 before min and seconds
+        }else{ 
+            timerElement.innerHTML = min + ":" + seconds; //remove the zeros if the timer is already double digits
+        }
+        sec++ //increment sec
+    }, 1000) //delay of 1000ms
 
 }
 increaseTemps();
@@ -50,7 +54,7 @@ function stopTimer(){
 
 
 
-/***********************uncomment when done*************************************/ 
+                    /***********************uncomment when done*************************************/ 
 
 
 var number = prompt('Please enter a number') //ask the player the number wanted and store the answer in 'number'
@@ -84,6 +88,7 @@ for(let i = 1; i <= (number); i++){ //retrieve the value from the the variable '
                 showReaction("box-success", box) //make the box green
                 stopTimer() // stop the timer
                 updateLeaderboardView();//show leaderboard
+                
                 })
             }
             nb++ //increase variable nb
@@ -106,7 +111,9 @@ for(let i = 1; i <= (number); i++){ //retrieve the value from the the variable '
 shuffleChildren(board) //shuffle the boxes 
 
 
-let scores = [
+
+                                    /**************************leaderboard************************************/
+let arrayScore = [
     
     {name: "Player 1",  score: 0 },
     {name: "Player 2",  score: 0 },
@@ -116,32 +123,35 @@ let scores = [
 
 function updateLeaderboardView() {
 
-    let leaderboard = document.getElementById("leaderboard");
+    let leaderboard = document.getElementById("leaderboard"); //get leaderboard from html
     leaderboard.innerHTML = "";
     
 
-    scores.sort(function(a, b){ return b.score - a.score  });
+    arrayScore.sort(function(a, b){ return b.score - a.score  }); //show scores highest to lowest
     let elements = []; 
     // create elements for each player
-    for(let i=0; i<scores.length; i++) {
-        let name = document.createElement("div");
-        let score = document.createElement("div");
-        name.classList.add("name");
-        score.classList.add("score");
-        name.innerText = scores[i].name;
-        score.innerText = scores[i].score;
+    for(let i=0; i<arrayScore.length; i++) {
+        let name = document.createElement("div");// create div name in html
+        let score = document.createElement("div"); //create div score in html
+        name.classList.add("name");// add "name" in a list 
+        score.classList.add("score"); //add "score" in a list  
+        name.innerText = arrayScore[i].name; //add text present in arrayScore in list name
+        score.innerText = arrayScore[i].score; //add text present in arrayScore in list name
 
-        let scoreRow = document.createElement("div");
-        scoreRow.classList.add("row");
-        scoreRow.appendChild(name);
-        scoreRow.appendChild(score);
-        leaderboard.appendChild(scoreRow);
+        let scoreBoard = document.createElement("div"); //create div scoreBoard in html
+        scoreBoard.classList.add("row"); //add a list row in html
+        scoreBoard.appendChild(name); //move name into scoreBoard
+        scoreBoard.appendChild(score); //move score section in the scoreBoard
+        leaderboard.appendChild(scoreBoard);
 
-        elements.push(scoreRow);
-        localStorage.timer;// to be fixed
-        console.log('timer')// to be fixed
+        elements.push(scoreBoard);
     }
 }
+
+
+
+
+
 
 
 
