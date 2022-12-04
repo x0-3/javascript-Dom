@@ -46,12 +46,12 @@
 
 /*************************** leaderBoard ***************************/
 
-.row {background: rgb(212, 250, 76);}
+/* .row {background: rgb(212, 250, 76);}
 .row:nth-child(1) {
     background: gold;
 }
 
-.container {
+#container {
     width: 50%;
     height: auto;
     margin: auto;
@@ -76,7 +76,7 @@
     position: relative;
     display: inline-block;
     width: 25%;
-} 
+}  */
 
 
   

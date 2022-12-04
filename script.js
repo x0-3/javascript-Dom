@@ -1,3 +1,15 @@
+/***************************variables*******************************************************************/
+let time 
+const timerElement = document.getElementById("timer") //find the element of timer in html
+
+const highScores = JSON.parse (localStorage.getItem("highScores")) || [];
+
+const maxHighScores = 5;
+console.log(highScores);//remove when done
+
+/*******************************************************************************************/
+
+
 // function to shuffle the boxes 
 // can be used by putting shuffleChildren and the section that we want it to affect
 
@@ -24,40 +36,83 @@ function showReaction(type, clickedBox){
     }
 }
 
-                                        /******************************timer***************************/
+/******************************timer***************************/
 
-let time 
-const timerElement = document.getElementById("timer") //find the element of timer in html
+let sec = 0; //change back to 0
 
 function increaseTemps() {
-    let sec = 0;
+    /******************change variable**************************************/
+    
     time = setInterval(()=>{
         
         let min = Math.floor(sec  / 60);
         let seconds = Math.floor(sec % 60);
-        if (seconds<10){ //if the timer is under the double digits value
-            timerElement.innerHTML = "0" + min + ":0" + seconds; //then add a 0 before min and seconds
+        if (seconds<10){ //if seconds is under the double digits value
+            timerElement.innerHTML =  min + ":0" + seconds; //then add a 0 before seconds
         }else{ 
-            timerElement.innerHTML = min + ":" + seconds; //remove the zeros if the timer is already double digits
+            timerElement.innerHTML = min + ":" + seconds; //remove the zeros if second is already double digits
         }
         sec++ //increment sec
+    
     }, 1000) //delay of 1000ms
 
 }
+
 increaseTemps();
 
 function stopTimer(){
-    clearInterval(time)
-    localStorage.setItem('timer', time);// store timer in local storage to be fixed
+    clearInterval(time);
 }
 // end timer
 
+/********************localstorage save score********************************** */
+function saveHighScore(){
+    const score = {
+        score: sec,
+    };
+    highScores.push(score);
+    highScores.sort( (a,b)=> b.score -a.score)
+    highScores.splice(5);
+
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+
+    console.log(highScores);//remove when done
+}
+/**************************leaderboard************************************/
 
 
-                    /***********************uncomment when done*************************************/ 
 
 
-var number = prompt('Please enter a number') //ask the player the number wanted and store the answer in 'number'
+
+
+
+// function LeaderboardView(){
+
+//     document.addEventListener('scoreboard', () => {
+//         //
+
+
+//         let elements = []
+//         //select the container
+//         let container = document.querySelector('#container')
+//         // Add each row to the array
+//         container.querySelectorAll('.row').forEach(el => elements.push(el))
+//         // Clear the container
+//         container.innerHTML = (time);
+//         // Sort the array from highest to lowest
+//         elements.sort((a, b) => b.querySelector('.score').textContent - a.querySelector('.score').textContent)
+//         // Put the elements back into the container
+//         elements.forEach(e => container.appendChild(e))
+
+        
+//     })
+// }
+
+
+/***********************uncomment when done*************************************/ 
+
+
+//var number = prompt('Please enter a number') //ask the player the number wanted and store the answer in 'number'
 
 
 
@@ -71,7 +126,7 @@ let nb = 1 //box number
 
 
 //loop that generate as much box as you want
-for(let i = 1; i <= (number); i++){ //retrieve the value from the the variable 'number'
+for(let i = 1; i <= 1 /*(number)*/; i++){ //retrieve the value from the the variable 'number'
     const newbox = box.cloneNode()
     newbox.innerText = i
     board.appendChild(newbox)
@@ -87,8 +142,8 @@ for(let i = 1; i <= (number); i++){ //retrieve the value from the the variable '
                 board.querySelectorAll(".box").forEach(function(box){  //all valid boxes green
                 showReaction("box-success", box) //make the box green
                 stopTimer() // stop the timer
-                updateLeaderboardView();//show leaderboard
-                
+                saveHighScore()// show saved score
+                //LeaderboardView();//show leaderboard
                 })
             }
             nb++ //increase variable nb
@@ -109,47 +164,6 @@ for(let i = 1; i <= (number); i++){ //retrieve the value from the the variable '
     }) 
 }
 shuffleChildren(board) //shuffle the boxes 
-
-
-
-                                    /**************************leaderboard************************************/
-let arrayScore = [
-    
-    {name: "Player 1",  score: 0 },
-    {name: "Player 2",  score: 0 },
-    {name: "Player 3",  score: 0 },
-
-];
-
-function updateLeaderboardView() {
-
-    let leaderboard = document.getElementById("leaderboard"); //get leaderboard from html
-    leaderboard.innerHTML = "";
-    
-
-    arrayScore.sort(function(a, b){ return b.score - a.score  }); //show scores highest to lowest
-    let elements = []; 
-    // create elements for each player
-    for(let i=0; i<arrayScore.length; i++) {
-        let name = document.createElement("div");// create div name in html
-        let score = document.createElement("div"); //create div score in html
-        name.classList.add("name");// add "name" in a list 
-        score.classList.add("score"); //add "score" in a list  
-        name.innerText = arrayScore[i].name; //add text present in arrayScore in list name
-        score.innerText = arrayScore[i].score; //add text present in arrayScore in list name
-
-        let scoreBoard = document.createElement("div"); //create div scoreBoard in html
-        scoreBoard.classList.add("row"); //add a list row in html
-        scoreBoard.appendChild(name); //move name into scoreBoard
-        scoreBoard.appendChild(score); //move score section in the scoreBoard
-        leaderboard.appendChild(scoreBoard);
-
-        elements.push(scoreBoard);
-    }
-}
-
-
-
 
 
 
