@@ -86,10 +86,9 @@ function saveHighScore(){
     .join("");
 }
 
-/***********************uncomment when done*************************************/ 
 
 
-//var number = prompt('Please enter a number') //ask the player the number wanted and store the answer in 'number'
+var number = prompt('Please enter a number') //ask the player the number wanted and store the answer in 'number'
 
 const box = document.createElement("div") //create a div stored in the variable box
 box.classList.add("box") //modify the propriety listed in the CSS
@@ -101,7 +100,7 @@ let nb = 1 //box number
 
 
 //loop that generate as much box as you want
-for(let i = 1; i <= 1 /*(number)*/; i++){ //retrieve the value from the the variable 'number'
+for(let i = 1; i <= (number); i++){ //retrieve the value from the the variable 'number'
     const newbox = box.cloneNode()
     newbox.innerText = i
     board.appendChild(newbox)
