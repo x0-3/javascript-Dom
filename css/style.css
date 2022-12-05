@@ -46,40 +46,31 @@
 
 /*************************** leaderBoard ***************************/
 
-/* .row {background: rgb(212, 250, 76);}
-.row:nth-child(1) {
-    background: gold;
-}
-
-#container {
-    width: 50%;
-    height: auto;
+.container{
     margin: auto;
-}
-  
-.row {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
-    border: 1px solid black;
-}
-  
-.name {
-    position: relative;
-    display: inline-block;
-    line-height: 45px;
-}
-  
-#score {
-    position: relative;
-    display: inline-block;
-    width: 25%;
-}  */
+    width: 50%;
+    text-align: center;
 
+}
 
+.container ul{
+    list-style: none;    
+    background-color:rgb(212, 250, 76) ;
+    border: 2px black;
+    margin: 10px;
+}
   
+.container li{
+    margin:4px;
+}
+
+.container .btn{
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 4px;
+    border-radius: 6px;
+}
 /*************************** query ***************************/
 @keyframes appear{
     from{

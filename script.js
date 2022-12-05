@@ -5,10 +5,11 @@ const timerElement = document.getElementById("timer") //find the element of time
 const highScores = JSON.parse (localStorage.getItem("highScores")) || [];
 
 const maxHighScores = 5;
+
+const highScoresList=document.getElementById("highScoresList");
 console.log(highScores);//remove when done
 
 /*******************************************************************************************/
-
 
 // function to shuffle the boxes 
 // can be used by putting shuffleChildren and the section that we want it to affect
@@ -71,50 +72,24 @@ function saveHighScore(){
         score: sec,
     };
     highScores.push(score);
-    highScores.sort( (a,b)=> b.score -a.score)
-    highScores.splice(5);
+    highScores.sort( (a,b)=> b.score -a.score)//sort the score from higest to lowest
+    highScores.splice(5);//only the top 5 highest score 
 
-    localStorage.setItem("highScores", JSON.stringify(highScores));
+    localStorage.setItem("highScores", JSON.stringify(highScores));//stores the data in localStorage
 
-    console.log(highScores);//remove when done
+    // localStorage.clear(); //remove later
+    console.log(highScores);//remove later
+
+    //get the data stored in localStorage to show on the scoreboard
+    highScoresList.innerHTML =highScores
+    .map((score) => `<li>player score :   ${score.score}`)
+    .join("");
 }
-/**************************leaderboard************************************/
-
-
-
-
-
-
-
-// function LeaderboardView(){
-
-//     document.addEventListener('scoreboard', () => {
-//         //
-
-
-//         let elements = []
-//         //select the container
-//         let container = document.querySelector('#container')
-//         // Add each row to the array
-//         container.querySelectorAll('.row').forEach(el => elements.push(el))
-//         // Clear the container
-//         container.innerHTML = (time);
-//         // Sort the array from highest to lowest
-//         elements.sort((a, b) => b.querySelector('.score').textContent - a.querySelector('.score').textContent)
-//         // Put the elements back into the container
-//         elements.forEach(e => container.appendChild(e))
-
-        
-//     })
-// }
-
 
 /***********************uncomment when done*************************************/ 
 
 
 //var number = prompt('Please enter a number') //ask the player the number wanted and store the answer in 'number'
-
-
 
 const box = document.createElement("div") //create a div stored in the variable box
 box.classList.add("box") //modify the propriety listed in the CSS
@@ -143,7 +118,6 @@ for(let i = 1; i <= 1 /*(number)*/; i++){ //retrieve the value from the the vari
                 showReaction("box-success", box) //make the box green
                 stopTimer() // stop the timer
                 saveHighScore()// show saved score
-                //LeaderboardView();//show leaderboard
                 })
             }
             nb++ //increase variable nb
