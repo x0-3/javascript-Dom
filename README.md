@@ -1,4 +1,4 @@
-# javascript-Dom
+# jeu des boites
 
 jeu des boites avec manipulation du DOM sur JavaScript  
   
